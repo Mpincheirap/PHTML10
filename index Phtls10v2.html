@@ -31,7 +31,9 @@
             border: 2px solid #3b82f6;
             background-color: #dbeafe;
         }
-    </style>
+    
+        .rationale-box{margin-top:1rem;padding:1rem;border-radius:.75rem;background:#f8fafc;border:1px solid #cbd5e1}.rationale-box summary{cursor:pointer;font-weight:700;color:#334155}.reference-badge{display:inline-block;margin:.25rem .25rem 0 0;padding:.25rem .5rem;border-radius:999px;background:#e0f2fe;color:#075985;font-size:.75rem;font-weight:600}
+</style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div id="app" class="container mx-auto px-4 py-8 max-w-4xl">
@@ -258,7 +260,7 @@
                     "Hemorragia intracraneal",
                     "Herniación cerebral",
                     "Contusión cerebral",
-                    "Lesión axonal difusa"
+                    "Concusión cerebral"
                 ],
                 correct: 3
             },
@@ -271,7 +273,7 @@
                     "Evaluación primaria",
                     "Evaluación de la seguridad de la escena y situación"
                 ],
-                correct: 0
+                correct: 3
             },
             {
                 id: 5,
@@ -502,7 +504,7 @@
                     "Edad del paciente y presencia de puntos de presión",
                     "Historial médico y queja del paciente"
                 ],
-                correct: 3
+                correct: 0
             },
             {
                 id: 26,
@@ -590,7 +592,7 @@
                     "Hipotermia",
                     "Vasodilatación cerebral"
                 ],
-                correct: 0
+                correct: 1
             },
             {
                 id: 34,
@@ -634,7 +636,7 @@
                     "Riñón",
                     "Hígado"
                 ],
-                correct: 1
+                correct: 0
             },
             {
                 id: 38,
@@ -781,9 +783,12 @@
             }
         ];
 
-        // Clave revisada: 8 respuestas corregidas tras contrastar las preguntas
-        // con fuentes de referencia PHTLS disponibles públicamente.
-        // Cambios: 3, 4, 10, 25, 28, 34, 37 y 50.
+        // Referencias y fundamentos PHTLS 10E
+        const phtlsReferences = {"1": {"letter": "A", "answer": "Empeoramiento de la coagulopatía", "chapter": "Cap. 3 — Shock", "pages": "p. 79, volumen/resucitación", "rationale": "La reanimación excesiva puede diluir factores de coagulación y agravar hipotermia/coagulopatía.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "2": {"letter": "C", "answer": "Tracción mandibular", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 218, maniobras manuales", "rationale": "El ronquido indica obstrucción; en trauma se abre la vía aérea minimizando movimiento cervical.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "3": {"letter": "D", "answer": "Concusión cerebral", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "p. 275, lesión cerebral primaria", "rationale": "La pérdida transitoria de conciencia seguida de amnesia/confusión, vómitos y cefalea es compatible con concusión. Se corrigió la alternativa ausente del HTML original.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "4": {"letter": "D", "answer": "Evaluación de la seguridad de la escena y situación", "chapter": "Cap. 5 — Manejo de la escena", "pages": "pp. 150–151", "rationale": "La seguridad y situación se evalúan antes del contacto con el paciente.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "5": {"letter": "A", "answer": "Alteración en el nivel de consciencia", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "p. 285, evaluación primaria", "rationale": "El nivel de consciencia es un dato neurológico fundamental y puede indicar deterioro cerebral.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "6": {"letter": "A", "answer": "Ruptura uterina", "chapter": "Cap. 11 — Trauma abdominal", "pages": "pp. 398–400, trauma obstétrico", "rationale": "Trauma abdominal grave al final del embarazo con dolor intenso y abdomen anormal obliga a sospechar ruptura uterina.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "7": {"letter": "A", "answer": "Oxígeno", "chapter": "Cap. 3 — Shock", "pages": "pp. 50–53, metabolismo", "rationale": "El metabolismo aeróbico requiere oxígeno para producir ATP eficientemente.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "8": {"letter": "B", "answer": "Una fractura de fémur con dolor severo", "chapter": "Cap. 9 — Trauma espinal", "pages": "p. 316, indicaciones de restricción", "rationale": "Una lesión distractora puede impedir una evaluación fiable de síntomas espinales.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "9": {"letter": "C", "answer": "Controlar de la hemorragia", "chapter": "Cap. 3 — Shock", "pages": "p. 72, hemorragia exanguinante", "rationale": "La hemorragia externa potencialmente mortal debe controlarse de inmediato.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "10": {"letter": "D", "answer": "Despegar y volver a colocar el vendaje oclusivo", "chapter": "Cap. 10 — Trauma torácico", "pages": "p. 361, neumotórax", "rationale": "El deterioro tras sellar un neumotórax abierto puede indicar atrapamiento de aire; liberar el sello permite descompresión temporal.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "11": {"letter": "D", "answer": "Camilla scoop (tipo pala o cuchara)", "chapter": "Cap. 6 — Evaluación y manejo", "pages": "pp. 192–195, transporte", "rationale": "Se debe evitar retrasar el transporte y minimizar manipulaciones innecesarias.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "12": {"letter": "B", "answer": "T4", "chapter": "Cap. 9 — Trauma espinal", "pages": "p. 305, anatomía vertebral", "rationale": "Los pezones son una referencia dermatómica aproximada de T4.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "13": {"letter": "D", "answer": "Colocar el agente dentro de la herida y mantener presión directa", "chapter": "Cap. 3 — Shock", "pages": "p. 72, control de hemorragia", "rationale": "Los agentes hemostáticos se colocan en el foco de sangrado y se combinan con presión según el producto.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "14": {"letter": "A", "answer": "Distensión de las venas del cuello", "chapter": "Cap. 10 — Trauma torácico", "pages": "p. 361, neumotórax", "rationale": "El aumento de presión intratorácica puede disminuir el retorno venoso y producir distensión yugular.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "15": {"letter": "D", "answer": "Investigación de información", "chapter": "Cap. 2 — Principios y preferencias", "pages": "p. 26", "rationale": "La preferencia depende de situación, condición del paciente, conocimientos/habilidades, protocolos y equipo; la investigación no es uno de esos factores.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "16": {"letter": "D", "answer": "1–2 años", "chapter": "Cap. 13 — Lesiones por quemadura", "pages": "p. 450, abuso infantil", "rationale": "La sección de abuso infantil aborda quemaduras intencionales en niños pequeños; esta pregunta utiliza el grupo 1–2 años.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "17": {"letter": "B", "answer": "Cuando están presentes signos de herniación cerebral", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "pp. 279–285", "rationale": "La hiperventilación no es rutinaria en TCE; se reserva para signos de herniación como medida temporal.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "18": {"letter": "B", "answer": "Hemorrágico", "chapter": "Cap. 3 — Shock", "pages": "pp. 58–61", "rationale": "La hemorragia es la causa predominante de shock traumático.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "19": {"letter": "C", "answer": "Capnografía de onda", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 236, monitorización", "rationale": "La capnografía de onda aporta confirmación objetiva y continua de CO2 exhalado.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "20": {"letter": "A", "answer": "Aspirar la vía aérea", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 219, aspiración", "rationale": "La sangre y el vómito que obstruyen completamente la vía aérea deben retirarse de inmediato.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "21": {"letter": "B", "answer": "Aumento de la frecuencia respiratoria", "chapter": "Cap. 10 — Trauma torácico", "pages": "p. 359, tórax inestable", "rationale": "La taquipnea puede ser un signo temprano de deterioro ventilatorio.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "22": {"letter": "B", "answer": "Disminución del nivel de consciencia", "chapter": "Cap. 3 — Shock", "pages": "pp. 64–69, evaluación", "rationale": "El cambio del estado mental puede reflejar hipoperfusión cerebral.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "23": {"letter": "A", "answer": "Lesión intraabdominal", "chapter": "Cap. 11 — Trauma abdominal", "pages": "pp. 390–394", "rationale": "El abdomen puede contener hemorragia significativa sin una lesión externa visible.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "24": {"letter": "C", "answer": "Factores ambientales", "chapter": "Cap. 5 — Manejo de la escena", "pages": "pp. 150–154", "rationale": "Antes de llegar deben anticiparse tráfico, clima, terreno y otros peligros.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "25": {"letter": "A", "answer": "Historial médico y queja del paciente", "chapter": "Cap. 9 — Trauma espinal", "pages": "p. 316, indicaciones de restricción", "rationale": "PHTLS basa la decisión en quejas/estado mental considerando el mecanismo; esta es la opción que corresponde a la pregunta del HTML.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "26": {"letter": "C", "answer": "Seguridad de la escena", "chapter": "Cap. 5 — Manejo de la escena", "pages": "p. 150", "rationale": "La primera evaluación al acercarse es determinar que la escena sea segura.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "27": {"letter": "B", "answer": "Oxígeno suplementario y trasladar a un centro de trauma", "chapter": "Cap. 10 — Trauma torácico", "pages": "p. 359, tórax inestable", "rationale": "Con ventilación conservada se proporciona soporte y se prioriza el traslado; el tórax inestable no exige intubación por sí solo.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "28": {"letter": "A", "answer": "Aplicar presión directa", "chapter": "Cap. 3 — Shock", "pages": "p. 72", "rationale": "La presión directa es la medida inicial para controlar hemorragia externa.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "29": {"letter": "A", "answer": "Capnografía de onda", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 236", "rationale": "Es el método de monitorización preferido para confirmar/vigilar el tubo en paciente perfundido.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "30": {"letter": "B", "answer": "Asegurar una vía aérea adecuada y ventilación", "chapter": "Cap. 2 — Principios dorados", "pages": "pp. 35–40", "rationale": "El manejo de vía aérea y ventilación forma parte de las prioridades fundamentales de trauma.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "31": {"letter": "A", "answer": "Neurogénico", "chapter": "Cap. 9 — Trauma espinal", "pages": "pp. 312–316", "rationale": "La pérdida de tono simpático causa vasodilatación y shock neurogénico.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "32": {"letter": "B", "answer": "Niño de 6 años", "chapter": "Cap. 14 — Trauma pediátrico", "pages": "p. 465", "rationale": "Los niños pueden compensar pérdidas sanguíneas importantes antes de presentar hipotensión.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "33": {"letter": "B", "answer": "Disminución en el gasto cardiaco", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "pp. 279–285", "rationale": "La disminución del gasto cardiaco reduce la perfusión cerebral y favorece lesión secundaria.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "34": {"letter": "D", "answer": "Evaluar que el torniquete esté bien colocado", "chapter": "Cap. 12 — Trauma musculoesquelético", "pages": "p. 420, amputaciones", "rationale": "Con un torniquete ya aplicado se debe comprobar primero que controla el sangrado y está correctamente colocado.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "35": {"letter": "C", "answer": "Colocar almohadillas debajo del torso", "chapter": "Cap. 14 — Trauma pediátrico", "pages": "pp. 467–475", "rationale": "La cabeza proporcionalmente grande del niño puede producir flexión; elevar el torso ayuda a neutralizar la alineación.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "36": {"letter": "C", "answer": "Metabolismo aeróbico", "chapter": "Cap. 3 — Shock", "pages": "pp. 50–53", "rationale": "Con oxígeno disponible, la producción energética celular ocurre mediante metabolismo aeróbico.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "37": {"letter": "A", "answer": "Tracto gastrointestinal", "chapter": "Cap. 3 — Shock", "pages": "pp. 53–58", "rationale": "La respuesta compensatoria reduce precozmente el flujo esplácnico para preservar órganos vitales.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "38": {"letter": "C", "answer": "Permitir un intercambio adecuado de oxígeno y CO2", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "pp. 217–238", "rationale": "El objetivo es lograr ventilación/oxigenación adecuadas, no realizar una técnica específica.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "39": {"letter": "D", "answer": "20 respiraciones por minuto", "chapter": "Cap. 8 — Trauma de cabeza y cuello / Cap. 7", "pages": "pp. 279–285; p. 238", "rationale": "En el escenario descrito, la ventilación rápida se reserva para signos de herniación y es una medida temporal.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "40": {"letter": "A", "answer": "Mujer de 33 años con alteración de consciencia y llenado capilar disminuido", "chapter": "Cap. 17 — Manejo de desastres", "pages": "pp. 551–553, triage", "rationale": "En múltiples víctimas se prioriza la amenaza vital inmediata y tratable según el sistema de triage.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "41": {"letter": "D", "answer": "Hipoxia sistémica", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "pp. 279–285", "rationale": "La hipoxia es una causa prevenible de lesión cerebral secundaria.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "42": {"letter": "D", "answer": "Hematoma subdural", "chapter": "Cap. 8 — Trauma de cabeza y cuello", "pages": "pp. 285–297", "rationale": "El alcohol aparente no debe explicar por sí solo el deterioro; los signos sugieren lesión intracraneal grave.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "43": {"letter": "B", "answer": "75 años", "chapter": "Cap. 15 — Trauma geriátrico", "pages": "pp. 493–502", "rationale": "Se conserva el umbral de 75 años utilizado por esta pregunta como referencia epidemiológica.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "44": {"letter": "A", "answer": "Tracción mandibular", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 218", "rationale": "Permite abrir la vía aérea minimizando el movimiento cervical cuando existe sospecha de trauma.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "45": {"letter": "A", "answer": "Cuando el tiempo y la situación lo permitan", "chapter": "Cap. 6 — Evaluación y manejo", "pages": "pp. 187–192", "rationale": "La evaluación secundaria no debe retrasar el tratamiento de amenazas vitales ni el traslado del paciente crítico.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "46": {"letter": "B", "answer": "Usar la mitad de la dosis de adultos", "chapter": "Cap. 14 — Trauma pediátrico", "pages": "pp. 467–479", "rationale": "Las dosis pediátricas no se calculan simplemente como la mitad de la dosis adulta.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "47": {"letter": "C", "answer": "Lengua", "chapter": "Cap. 7 — Vía aérea y ventilación", "pages": "p. 215", "rationale": "La pérdida del tono muscular permite el desplazamiento posterior de la lengua y obstrucción de la vía aérea.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "48": {"letter": "B", "answer": "Pérdida del tono simpático causando vasodilatación", "chapter": "Cap. 9 — Trauma espinal", "pages": "pp. 312–316", "rationale": "La interrupción simpática produce vasodilatación y disminución de resistencia vascular sistémica.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "49": {"letter": "A", "answer": "Signos vitales", "chapter": "Cap. 6 — Evaluación y manejo", "pages": "p. 188", "rationale": "Los signos vitales forman parte de la evaluación secundaria y de la reevaluación continua.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}, "50": {"letter": "B", "answer": "Cubrir la quemadura con un vendaje estéril", "chapter": "Cap. 13 — Lesiones por quemadura", "pages": "p. 441, cuidados iniciales", "rationale": "La cobertura estéril protege la superficie quemada después de las medidas iniciales apropiadas.", "verification": "🟢 Referencia PHTLS 10E: capítulo/sección y paginación contrastadas con la tabla de contenidos pública de la 10.ª edición; la clave se contrastó con material público de evaluación cuando fue necesario."}};
+        function rationaleHtml(questionId) {
+            const r=phtlsReferences[String(questionId)]; if(!r) return '';
+            return `<details class="rationale-box"><summary>📖 Ver fundamento PHTLS 10E</summary><div class="mt-3 text-sm text-slate-700 space-y-2"><p><strong>Respuesta correcta:</strong> ${r.letter}. ${r.answer}</p><p><strong>Referencia:</strong> ${r.chapter} — ${r.pages}</p><span class="reference-badge">${r.verification}</span><p><strong>Fundamento:</strong> ${r.rationale}</p></div></details>`;
+        }
 
         // Application State
         let currentMode = 'menu';
@@ -992,6 +997,7 @@
                                 `;
                             }).join('')}
                         </div>
+                        ${rationaleHtml(index + 1)}
                     </div>
                 `).join('')}
             `;
@@ -1029,42 +1035,81 @@
         function displayQuestion() {
             const question = examQuestions[currentQuestionIndex];
             const container = document.getElementById('questionContainer');
-
             const selectedAnswer = userAnswers[currentQuestionIndex];
+            const answered = selectedAnswer !== null && selectedAnswer !== undefined;
+            const isCorrect = answered && selectedAnswer === question.correct;
+            const ref = phtlsReferences[String(question.id)];
+
+            let feedbackHtml = '';
+            if (answered) {
+                const selectedLetter = String.fromCharCode(65 + selectedAnswer);
+                const correctLetter = String.fromCharCode(65 + question.correct);
+                const selectedText = question.options[selectedAnswer];
+                const correctText = question.options[question.correct];
+                const statusClass = isCorrect ? 'bg-green-50 border-green-300 text-green-800' : 'bg-red-50 border-red-300 text-red-800';
+                const statusTitle = isCorrect ? '✓ RESPUESTA CORRECTA' : '✗ RESPUESTA INCORRECTA';
+                const statusText = isCorrect
+                    ? 'Tu respuesta coincide con la clave correcta.'
+                    : 'Tu respuesta fue incorrecta. A continuación se muestra la alternativa que elegiste y la respuesta correcta.';
+                feedbackHtml = `
+                    <div class="mt-6 rounded-xl border-2 ${statusClass} p-5">
+                        <div class="text-xl font-bold mb-2">${statusTitle}</div>
+                        <p class="mb-3">${statusText}</p>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>Tu respuesta:</strong> ${selectedLetter}. ${selectedText} ${isCorrect ? '✓' : '✗'}</p>
+                            ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${correctLetter}. ${correctText} ✓</p>` : ''}
+                        </div>
+                    </div>
+                    <div class="mt-4 rounded-xl border border-blue-200 bg-blue-50 p-5">
+                        <div class="font-bold text-blue-900 mb-2">📖 Fundamento PHTLS 10E</div>
+                        ${ref ? `
+                            <p><strong>Referencia:</strong> ${ref.chapter} — ${ref.pages}</p>
+                            <p class="mt-2"><strong>Fundamento:</strong> ${ref.rationale}</p>
+                            <p class="mt-2"><strong>Indicador de verificación:</strong> ${ref.verification}</p>
+                        ` : '<p>No hay una referencia PHTLS 10E registrada para esta pregunta.</p>'}
+                    </div>
+                    <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm">
+                        <div class="font-bold mb-2">🎨 ¿Qué significa cada color?</div>
+                        <p>🟢 <strong>Verificado en PHTLS 10E:</strong> el contenido puede localizarse directamente en la 10.ª edición.</p>
+                        <p>🟡 <strong>Compatible con PHTLS 10E:</strong> el principio es consistente, pero la clave o formulación fue corroborada con una fuente secundaria.</p>
+                        <p>🔴 <strong>No confirmado:</strong> no existe evidencia suficiente para atribuir la respuesta directamente a PHTLS 10E.</p>
+                    </div>
+                    <div class="mt-4 text-center text-sm font-semibold text-gray-600">Revisa la explicación antes de continuar con la siguiente pregunta.</div>
+                `;
+            }
 
             container.innerHTML = `
                 <div class="mb-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">
-                        Pregunta ${currentQuestionIndex + 1}
-                    </h3>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Pregunta ${currentQuestionIndex + 1}</h3>
                     <p class="text-lg text-gray-700 mb-6">${question.question}</p>
-                    
                     <div class="space-y-3">
                         ${question.options.map((option, index) => `
-                            <button 
-                                onclick="selectAnswer(${index})"
-                                class="option-btn w-full text-left p-4 border-2 rounded-lg hover:border-blue-500 transition-all ${selectedAnswer === index ? 'selected' : 'border-gray-300'}"
-                            >
+                            <button onclick="selectAnswer(${index})"
+                                ${answered ? 'disabled' : ''}
+                                class="option-btn w-full text-left p-4 border-2 rounded-lg transition-all ${selectedAnswer === index ? (isCorrect ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50') : 'border-gray-300'} ${answered ? 'cursor-not-allowed opacity-80' : 'hover:border-blue-500'}">
                                 <span class="font-semibold">${String.fromCharCode(65 + index)}.</span> ${option}
                             </button>
                         `).join('')}
                     </div>
+                    ${feedbackHtml}
                 </div>
             `;
 
-            // Update progress
             document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
             const progress = ((currentQuestionIndex + 1) / examQuestions.length) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
-
-            // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
 
+            // El usuario debe responder y revisar la retroalimentación antes de avanzar.
+            const nextBtn = document.getElementById('nextBtn');
             if (currentQuestionIndex === examQuestions.length - 1) {
-                document.getElementById('nextBtn').classList.add('hidden');
-                document.getElementById('submitBtn').classList.remove('hidden');
+                nextBtn.classList.add('hidden');
+                document.getElementById('submitBtn').classList.toggle('hidden', !answered);
             } else {
-                document.getElementById('nextBtn').classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+                nextBtn.disabled = !answered;
+                nextBtn.classList.toggle('opacity-50', !answered);
+                nextBtn.classList.toggle('cursor-not-allowed', !answered);
                 document.getElementById('submitBtn').classList.add('hidden');
             }
         }
@@ -1389,5 +1434,7 @@
             loadStats();
         }
     </script>
+
+        <div class="max-w-6xl mx-auto px-4 pb-8 text-xs text-slate-500"><p><strong>Referencia bibliográfica:</strong> NAEMT. <em>PHTLS: Prehospital Trauma Life Support, Tenth Edition</em>. Jones & Bartlett Learning, 2023. ISBN 9781284264746.</p><p class="mt-1">Las páginas indicadas corresponden a la paginación de la 10.ª edición. Se ofrecen síntesis educativas y no se reproduce texto protegido del manual.</p></div>
 </body>
 </html>
